@@ -30,7 +30,7 @@ rhos = 1000;
 P = 12.5*3600*1;
 ws = 0.5*10^-3;
 tcr = 0.1;
-Co = 0.01;
+Co = 0.05;
 wind = linspace(1,15,scaled_n_iter);
 ka = 2;
 ke = 0.16/(365*24*3600);
@@ -235,6 +235,7 @@ heatmap(rslr,wind,a_data);
 title("Width of the Marsh Platform After 100 Years Under Different Environmental Parameters");
 xlabel("Rate of Sea Level Rise (mm/yr)");
 ylabel("Average Wind Speed (m/s)");
+colormap("turbo")
 
 figure(2)
 
@@ -242,6 +243,7 @@ heatmap(rslr,wind,b_data);
 title("Width of the Lagoon After 100 Years Under Different Environmental Parameters");
 xlabel("Rate of Sea Level Rise (mm/yr)");
 ylabel("Average Wind Speed (m/s)");
+colormap("turbo")
 
 figure(3)
 
@@ -249,6 +251,7 @@ heatmap(rslr,wind,c_data);
 title("Depth of the Marsh Below MHW After 100 Years Under Different Environmental Parameters");
 xlabel("Rate of Sea Level Rise (mm/yr)");
 ylabel("Average Wind Speed (m/s)");
+colormap("turbo")
 
 figure(4)
 
@@ -256,6 +259,7 @@ heatmap(rslr,wind,d_data);
 title("Depth of the Lagoon After 100 Years Under Different Environmental Parameters");
 xlabel("Rate of Sea Level Rise (mm/yr)");
 ylabel("Average Wind Speed (m/s)");
+colormap("turbo")
 
 figure(5)
 
@@ -263,6 +267,7 @@ heatmap(rslr,wind,e_data);
 title("Carbon Stored per m^2 after 100 Years Under Different Environmental Parameters");
 xlabel("Rate of Sea Level Rise (mm/yr)");
 ylabel("Average Wind Speed (m/s)");
+colormap("turbo")
 
 figure(5)
 
@@ -270,5 +275,6 @@ heatmap(rslr,wind,f_data);
 title("Methane Emissions after 100 Years Under Different Environmental Parameters");
 xlabel("Rate of Sea Level Rise (mm/yr)");
 ylabel("Average Wind Speed (m/s)");
+colormap("turbo")
 
 toc

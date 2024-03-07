@@ -235,6 +235,7 @@ heatmap(rslr,Co*1000,a_data);
 title("Width of the Marsh Platform After 100 Years Under Different Environmental Parameters");
 xlabel("Rate of Sea Level Rise (mm/yr)");
 ylabel("Reference Sediment Concentration (mg/mL)");
+colormap("turbo")
 
 figure(2)
 
@@ -242,6 +243,7 @@ heatmap(rslr,Co*1000,b_data);
 title("Width of the Lagoon After 100 Years Under Different Environmental Parameters");
 xlabel("Rate of Sea Level Rise (mm/yr)");
 ylabel("Reference Sediment Concentration (mg/mL)");
+colormap("turbo")
 
 figure(3)
 
@@ -249,6 +251,7 @@ heatmap(rslr,Co*1000,c_data);
 title("Depth of the Marsh Below MHW After 100 Years Under Different Environmental Parameters");
 xlabel("Rate of Sea Level Rise (mm/yr)");
 ylabel("Reference Sediment Concentration (mg/mL)");
+colormap("turbo")
 
 figure(4)
 
@@ -256,6 +259,7 @@ heatmap(rslr,Co*1000,d_data);
 title("Depth of the Lagoon After 100 Years Under Different Environmental Parameters");
 xlabel("Rate of Sea Level Rise (mm/yr)");
 ylabel("Reference Sediment Concentration (mg/mL)");
+colormap("turbo")
 
 figure(5)
 
@@ -263,6 +267,7 @@ heatmap(rslr,Co*1000,e_data);
 title("Carbon Stored per m^2 after 100 Years Under Different Environmental Parameters");
 xlabel("Rate of Sea Level Rise (mm/yr)");
 ylabel("Reference Sediment Concentration (mg/mL)");
+colormap("turbo")
 
 figure(5)
 
@@ -270,5 +275,6 @@ heatmap(rslr,Co*1000,f_data);
 title("Methane Emissions after 100 Years Under Different Environmental Parameters");
 xlabel("Rate of Sea Level Rise (mm/yr)");
 ylabel("Reference Sediment Concentration (mg/mL)");
+colormap("turbo")
 
 toc
