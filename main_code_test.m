@@ -3,9 +3,8 @@ tic
 
 %% Computational Parameters
 
-years = 100;
+years = 30;
 n_iter = 1000;
-scaled_n_iter = n_iter/25;
 t_init = 0;
 t_fin = years*365*24*60*60;
 h = (t_fin-t_init)/n_iter;
@@ -14,8 +13,8 @@ t = t_sec/(60*60*24*365);
 
 %% Initial Conditions
 
-wm_init = 5000;
-wl_init = 5000;
+wm_init = 3300;
+wl_init = 6700;
 hm_init = 0.25;
 hl_init = 3.25;
 wb_init = wl_init+wm_init;
@@ -31,14 +30,14 @@ P = 12.5*3600*1;
 ws = 0.5*10^-3;
 tcr = 0.1;
 Co = 0.05;
-wind = 4.58974;
+wind = 5;
 ka = 2;
 ke = 0.16/(365*24*3600);
 amp = 1.4/2;
-RSLR = 7.82051*(10^-3)/(3600*24*365);
+RSLR = 3*(10^-3)/(3600*24*365);
 rhom = 1000;
 lamda = 0.0001;
-beta = 10^10;
+beta = 10^-3;
 kk = 0.012/(24*60*60);
 wtidal = 5*wm_init;
 
@@ -189,3 +188,11 @@ for j=1:n_iter-1
     end
 
 end
+
+WM = WB-WL; 
+
+plot(t,WM)
+
+rate = (WM(n_iter)-WM(1))/years;
+
+display(rate)
