@@ -3,9 +3,9 @@ clc; clear variables;
 
 %% Computational Parameters
 
-years = 150;
+years = 100;
 n_iter = 10000;
-scaled_n_iter = n_iter/500;
+scaled_n_iter = n_iter/250;
 t_init = 0;
 t_fin = years*365*24*60*60;
 h = (t_fin-t_init)/n_iter;
@@ -41,7 +41,7 @@ rhom = 1000;
 lamda = 0.0001;
 beta = 10^10;
 kk = 0.012/(24*60*60);
-wtidal = 5*wm_init;
+wtidal = wm_init*7;
 
 %% Preallocationg Arrays
 
@@ -211,7 +211,8 @@ for j=1:scaled_n_iter % Co
                 CTOT(l+1,k,j) = ctot+h*dCTOTdt;
                 CLAB(l+1,k,j) = clab+h*dCLABdt;
                 CREF(l+1,k,j) = cref+h*dCREFdt*wm;
-                MTOT(l+1,k,j) = mtot+h*mflux*wm; 
+                MTOT(l+1,k,j) = mtot+h*mflux*wm;
+                MFLUX(l+1,k,j) = mflux;
 
             end
 
@@ -230,6 +231,7 @@ CTOT( CTOT <= 0 ) = NaN;
 CREF( CREF <= 0 ) = NaN;
 CLAB( CLAB <= 0 ) = NaN;
 MTOT( MTOT <= 0 ) = NaN;
+MFLUX( MFLUX <= 0 ) = NaN;
 
 %% Plotting 
 
@@ -313,9 +315,22 @@ cb.Label.String = "kgs of Carbon";
 
 figure(7)
 
-tiledlayout("flow")
+tl = tiledlayout(4,3);
+title(tl,"Time Series Analysis of Critical Model State Variables Under Different Reference Sediment Concentrations")
 
-nexttile
+nexttile([2,3]);
+hold on
+plot(t,carbon_to_methane(MTOT(:,17,3))) % Drown
+plot(t,carbon_to_methane(MTOT(:,10,8))) % Erode
+plot(t,carbon_to_methane(MTOT(:,10,15))) % Stable
+plot(t,carbon_to_methane(MTOT(:,1,14))) % Fill
+title("Methane Emissions");
+ylabel("Kilograms of Methane");
+xlabel("Years")
+legend("Marsh Vertical Drowning","Marsh Retreat (Lateral Erosion)","Marsh Expansion to Equilibrium","Marsh Expansion to Full",'Location','northwest')
+hold off
+
+nexttile([2,1]);
 hold on
 plot(t,WM(:,17,3)) % Drown
 plot(t,WM(:,10,8)) % Erode
@@ -323,10 +338,9 @@ plot(t,WM(:,10,15)) % Stable
 plot(t,WM(:,1,14)) % Fill
 title("Width of the Marsh");
 ylabel("Meters");
-legend("DR","RE","Ee","Ef",'Location','northwest')
 hold off
 
-nexttile
+nexttile([2,1]);
 hold on
 plot(t,HM(:,17,3)) % Drown
 plot(t,HM(:,10,8)) % Erode
@@ -334,29 +348,21 @@ plot(t,HM(:,10,15)) % Stable
 plot(t,HM(:,1,14)) % Fill
 title("Depth of the Marsh Below MHW");
 ylabel("Meters");
-legend("DR","RE","Ee","Ef",'Location','northwest')
 hold off
 
-nexttile
-hold on
-plot(t,CREF(:,17,3)) % Drown
-plot(t,CREF(:,10,8)) % Erode
-plot(t,CREF(:,10,15)) % Stable
-plot(t,CREF(:,1,14)) % Fill
-title("Refractory Carbon Pool");
-ylabel("kgs of Carbon");
-legend("DR","RE","Ee","Ef",'Location','northwest')
-hold off
+nexttile([2,1]);
 
-nexttile
+upperlimit = zeros(1,n_iter) + ((17.7+9.7)/(3600*10^6));
+lowerlimit = zeros(1,n_iter) + ((17.7-9.7)/(3600*10^6));
 hold on
-plot(t,MTOT(:,17,3)) % Drown
-plot(t,MTOT(:,10,8)) % Erode
-plot(t,MTOT(:,10,15)) % Stable
-plot(t,MTOT(:,1,14)) % Fill
-title("Methane Emissions");
-ylabel("kgs of Carbon");
-legend("DR","RE","Ee","Ef",'Location','northwest')
+plot(t,carbon_to_methane(MFLUX(:,17,3))) % Drown
+plot(t,carbon_to_methane(MFLUX(:,10,8))) % Erode
+plot(t,carbon_to_methane(MFLUX(:,10,15))) % Stable
+plot(t,carbon_to_methane(MFLUX(:,1,14))) % Fill
+literature = plot(t,upperlimit,"--k",t,lowerlimit,"--k");
+title("Methane Flux");
+ylabel("Kilograms of Methane per Meter^2 per Second");
 hold off
+legend(literature,"Comer-Warner et al. 2022", "Location","southoutside")
 
 toc
